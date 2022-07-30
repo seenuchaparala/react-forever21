@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import Button from '@mui/material/Button'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ImageCarousel from './Components/ImageCarousel/ImageCarousel'
+import ProductCateogory from './Components/ProductCategories/ProductCateogory'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -92,7 +93,11 @@ export default function App() {
           </Toolbar>
         </AppBar>
       </Box>
+      <Box sx={{width: 960, m: 'auto'}}>
       <ImageCarousel />
+      <ProductCateogory />
+      </Box>
+     
     </>
   )
 }
