@@ -10,6 +10,9 @@ import Button from '@mui/material/Button'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ImageCarousel from './Components/ImageCarousel/ImageCarousel'
 import ProductCateogory from './Components/ProductCategories/ProductCateogory'
+import ProductResult from './Components/ProductResult/ProductResult'
+import { Routes, Route } from 'react-router-dom'
+import { useState } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -55,7 +58,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const pages = ['MEN', 'WOMEN', 'CONTACT US']
 
+
 export default function App() {
+  const [query, setQuery] = useState('')
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -93,11 +98,20 @@ export default function App() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box sx={{width: 960, m: 'auto'}}>
-      <ImageCarousel />
-      <ProductCateogory />
+      <Box sx={{ width: 960, m: 'auto' }}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <ImageCarousel />
+                <ProductCateogory />
+              </>
+            }
+          />
+          <Route path='/search/:query' element={<ProductResult />}/>
+        </Routes>
       </Box>
-     
     </>
   )
 }

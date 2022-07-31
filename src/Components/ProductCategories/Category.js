@@ -4,8 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const Category = ({image, productName}) => {
+    let navigate = useNavigate()
   return (
     <Card sx={{ maxWidth: 345 }}>
     <CardMedia
@@ -20,7 +22,7 @@ const Category = ({image, productName}) => {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Shop Now</Button>
+      <Button onClick={() => navigate(`/search/${productName}`)}size="small">Shop Now</Button>
     </CardActions>
   </Card>
   )

@@ -6,16 +6,16 @@ import SunglassImage from '../ImageCarousel/Images/sunglasses.jpg'
 import { Grid } from '@mui/material'
 const ProductCateogory = () => {
   const list = [
-    { product: 'Caps', image: CapImage },
-    { product: 'Shoes', image: ShoeImage },
-    { product: 'Gift Cards', image: GiftImage },
-    { product: 'Sunglasses', image: SunglassImage },
+    { id: 1, product: 'Caps', image: CapImage },
+    { id: 2, product: 'Shoes', image: ShoeImage },
+    { id: 3, product: 'GiftCards', image: GiftImage },
+    { id: 4, product: 'Sunglasses', image: SunglassImage },
   ]
   return (
     <div>
       <Grid container spacing={2}>
         {list.map((item) => (
-          <Grid item xs={3}>
+          <Grid key={item.id} item xs={3}>
             <Category productName={item.product} image={item.image} />
           </Grid>
         ))}
