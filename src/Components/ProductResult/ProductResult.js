@@ -5,8 +5,8 @@ import { Grid } from '@mui/material'
 
 const ProductResult = () => {
   const { query } = useParams()
-  const data = useFetch(query)
-  console.log(data)
+  const data = useFetch
+
   // <div>
   //   <Grid container spacing={2}>
   //     {list.map((item) => (

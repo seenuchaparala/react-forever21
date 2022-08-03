@@ -9,9 +9,9 @@ import SearchIcon from '@mui/icons-material/Search'
 import Button from '@mui/material/Button'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ImageCarousel from './Components/ImageCarousel/ImageCarousel'
-import ProductCateogory from './Components/ProductCategories/ProductCateogory'
+import ProductCateogory from './Components/ProductCategories/ProductCateogories'
 import ProductResult from './Components/ProductResult/ProductResult'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
@@ -43,7 +43,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -56,11 +55,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-const pages = ['MEN', 'WOMEN', 'CONTACT US']
-
+const pages = ['MEN', 'WOMEN', 'ABOUT US']
 
 export default function App() {
+  const navigate = useNavigate()
   const [query, setQuery] = useState('')
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/search/${query}`)
+    }
+  }
+ 
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -78,14 +83,17 @@ export default function App() {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  // onClick={handleCloseNavMenu}
+                  onClick={(page) => navigate(`/search/${page}`)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page}
                 </Button>
               ))}
             </Box>
-            <Search>
+            <Search
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleEnter}
+            >
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -109,7 +117,7 @@ export default function App() {
               </>
             }
           />
-          <Route path='/search/:query' element={<ProductResult />}/>
+          <Route path="/search/:query" element={<ProductResult />} />
         </Routes>
       </Box>
     </>
