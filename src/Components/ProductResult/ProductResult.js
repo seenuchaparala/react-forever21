@@ -22,8 +22,8 @@ const ProductResult = ({onAdd}) => {
       <Grid container spacing={2}>
         {data.map((product) => {
           return (
-            <Grid key={product.id} item xs={3}>
-              <ProductCard data={product} onAdd={onAdd}/>
+            <Grid  key={product.pid} item xs={3}>
+              <ProductCard  data={product} onAdd={onAdd}/>
             </Grid>
           )
         })}
