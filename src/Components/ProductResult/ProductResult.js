@@ -3,9 +3,9 @@ import useFetch from '../../useFetch'
 import ProductCard from './ProductCard'
 import { Grid } from '@mui/material'
 
-const ProductResult = () => {
+const ProductResult = ({onAdd}) => {
   const { query } = useParams()
-  const data = useFetch
+  const data = useFetch(query)
 
   // <div>
   //   <Grid container spacing={2}>
@@ -23,7 +23,7 @@ const ProductResult = () => {
         {data.map((product) => {
           return (
             <Grid key={product.id} item xs={3}>
-              <ProductCard data={product} />
+              <ProductCard data={product} onAdd={onAdd}/>
             </Grid>
           )
         })}

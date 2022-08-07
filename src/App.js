@@ -8,11 +8,14 @@ import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
 import Button from '@mui/material/Button'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import IconButton from '@mui/material/IconButton'
+import Badge from '@mui/material/Badge'
 import ImageCarousel from './Components/ImageCarousel/ImageCarousel'
 import ProductCateogory from './Components/ProductCategories/ProductCateogories'
 import ProductResult from './Components/ProductResult/ProductResult'
+import Cart from './Components/Cart/Cart'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -55,17 +58,54 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-const pages = ['MEN', 'WOMEN', 'ABOUT US']
-
 export default function App() {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
+  const [cartItems, setCartItems] = useState([])
+  let [cartTotal, setCartTotal] = useState(0)
+  
+
+  useEffect(()=> {
+    if (cartItems.length === 1) {
+      setCartTotal(cartItems[0].qty)
+    }
+    else {
+      setCartTotal(cartItems.reduce((a, b) => (a + b.qty), 0))
+    }
+  },[cartItems])
+  
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
       navigate(`/search/${query}`)
     }
   }
- 
+
+  const onAdd = (product) => {
+    const exist = cartItems.find((item) => item.pid === product.pid)
+    if (exist) {
+      setCartItems(
+        cartItems.map((item) =>
+          item.pid === product.pid ? { ...exist, qty: exist.qty + 1 } : item
+        )
+      )
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }])
+    }
+  }
+
+  const onRemove = (product) => {
+    const exist = cartItems.find((item) => item.pid === product.pid)
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((item) => item.pid !== product.pid))
+    } else {
+      setCartItems(
+        cartItems.map((item) =>
+          item.pid === product.pid ? { ...exist, qty: exist.qty - 1 } : item
+        )
+      )
+    }
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -77,18 +117,32 @@ export default function App() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              FOREVER21
+              <Button
+                onClick={(page) => navigate(`/`)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                FOREVER 21
+              </Button>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={(page) => navigate(`/search/${page}`)}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))}
+              <Button
+                onClick={() => navigate(`/search/men`)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                MEN
+              </Button>
+              <Button
+                onClick={() => navigate(`/search/women`)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                WOMEN
+              </Button>
+              <Button
+                onClick={() => navigate(`/search/contactus`)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                CONTACT US
+              </Button>
             </Box>
             <Search
               onChange={(e) => setQuery(e.target.value)}
@@ -102,7 +156,14 @@ export default function App() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <ShoppingCartIcon />
+            <IconButton
+              aria-label="cart"
+              onClick={() => navigate(`/search/cart`)}
+            >
+              <Badge badgeContent={cartTotal} color="success">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
@@ -117,7 +178,16 @@ export default function App() {
               </>
             }
           />
-          <Route path="/search/:query" element={<ProductResult />} />
+          <Route
+            path="/search/:query"
+            element={<ProductResult onAdd={onAdd} />}
+          />
+          <Route
+            path="/search/cart"
+            element={
+              <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+            }
+          />
         </Routes>
       </Box>
     </>
