@@ -138,10 +138,10 @@ export default function App() {
                 WOMEN
               </Button>
               <Button
-                onClick={() => navigate(`/search/contactus`)}
+                onClick={() => navigate(`/search/aboutus`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                CONTACT US
+                ABOUT US
               </Button>
             </Box>
             <Search
@@ -185,8 +185,12 @@ export default function App() {
           <Route
             path="/search/cart"
             element={
-              <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+              <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} setCartItems={setCartItems}/>
             }
+          />
+          <Route
+            path="/search/:query"
+            element={<ProductResult onAdd={onAdd} />}
           />
         </Routes>
       </Box>

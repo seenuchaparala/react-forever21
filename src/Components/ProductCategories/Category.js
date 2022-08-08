@@ -16,12 +16,12 @@ const Category = ({image, productName}) => {
       image={image}
       alt={productName}
     />
-    <CardContent>
+    <CardContent >
       <Typography gutterBottom variant="h5" component="div">
         {productName}
       </Typography>
     </CardContent>
-    <CardActions>
+    <CardActions sx={{justifyContent: 'center'}}>
       <Button onClick={() => navigate(`/search/${productName}`)}size="small">Shop Now</Button>
     </CardActions>
   </Card>

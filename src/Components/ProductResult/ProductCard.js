@@ -17,17 +17,38 @@ export default function ProductCard({ data, onAdd }) {
         alt="green iguana"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          align='center'
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            width: 200,
+            whiteSpace: 'nowrap',
+          }}
+        >
           {brand}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align='center'
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            width: 200,
+            whiteSpace: 'nowrap',
+          }}
+        >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {price}
+        <Typography variant="body2" color="text.secondary" align='center' sx={{margin: 1}}>
+          ${price}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{justifyContent: 'center'}}>
         <Button size="small" onClick={() => onAdd(data)}>
           Add to cart
         </Button>
