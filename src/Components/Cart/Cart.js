@@ -18,6 +18,10 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
           setDiscount((0.3 * itemsPrice).toFixed(2))
           setLabelError(false)
           break
+        case 'EXTRA50':
+          setDiscount((0.5 * itemsPrice).toFixed(2))
+          setLabelError(false)
+          break
         default:
           setLabelError(true)
           break
