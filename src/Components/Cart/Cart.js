@@ -1,4 +1,4 @@
-import CartItem1 from './CartItem'
+import CartItem from './CartItem'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -11,15 +11,17 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
   const [coupon, setCoupon] = useState('')
   const [discount, setDiscount] = useState(0)
   const [labelError, setLabelError] = useState(false)
-  const handleEnter = () => {
-    switch (coupon) {
-      case 'EXTRA30':
-        setDiscount((0.3 * itemsPrice).toFixed(2))
-        setLabelError(false)
-        break
-      default:
-        setLabelError(true)
-        break
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      switch (coupon) {
+        case 'EXTRA30':
+          setDiscount((0.3 * itemsPrice).toFixed(2))
+          setLabelError(false)
+          break
+        default:
+          setLabelError(true)
+          break
+      }
     }
   }
   return cartItems.length === 0 ? (
@@ -33,7 +35,7 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
       </Typography>
       {cartItems.qty === 0 ? <p>No items in cart.</p> : null}
       {cartItems.map((item) => (
-        <CartItem1
+        <CartItem
           key={item.pid}
           item={item}
           onAdd={onAdd}
@@ -45,7 +47,7 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
           error={labelError}
           id="outlined-error-helper-text"
           label="Enter Coupon EXTRA30"
-          helperText={labelError ? 'Invalid coupon' : ''}
+          helperText={labelError && 'Invalid coupon'}
           align="center"
           sx={{ margin: 2 }}
           onChange={(e) => setCoupon(e.target.value)}

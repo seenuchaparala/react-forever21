@@ -5,7 +5,7 @@ import { Grid } from '@mui/material'
 
 const ProductResult = ({onAdd}) => {
   const { query } = useParams()
-  const data = useFetch
+  const data = useFetch(query)
 
   // <div>
   //   <Grid container spacing={2}>

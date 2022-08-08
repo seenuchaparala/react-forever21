@@ -13,7 +13,9 @@ import Badge from '@mui/material/Badge'
 import ImageCarousel from './Components/ImageCarousel/ImageCarousel'
 import ProductCateogory from './Components/ProductCategories/ProductCateogories'
 import ProductResult from './Components/ProductResult/ProductResult'
+import AboutUs from './Components/AboutUs/AboutUs'
 import Cart from './Components/Cart/Cart'
+import InvalidURL from './Components/InvalidURL'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -63,17 +65,15 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [cartItems, setCartItems] = useState([])
   let [cartTotal, setCartTotal] = useState(0)
-  
 
-  useEffect(()=> {
+  useEffect(() => {
     if (cartItems.length === 1) {
       setCartTotal(cartItems[0].qty)
+    } else {
+      setCartTotal(cartItems.reduce((a, b) => a + b.qty, 0))
     }
-    else {
-      setCartTotal(cartItems.reduce((a, b) => (a + b.qty), 0))
-    }
-  },[cartItems])
-  
+  }, [cartItems])
+
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
       navigate(`/search/${query}`)
@@ -118,7 +118,7 @@ export default function App() {
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
               <Button
-                onClick={(page) => navigate(`/`)}
+                onClick={() => navigate(`/`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 FOREVER 21
@@ -138,7 +138,7 @@ export default function App() {
                 WOMEN
               </Button>
               <Button
-                onClick={() => navigate(`/search/aboutus`)}
+                onClick={() => navigate(`/aboutus`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 ABOUT US
@@ -185,13 +185,16 @@ export default function App() {
           <Route
             path="/search/cart"
             element={
-              <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} setCartItems={setCartItems}/>
+              <Cart
+                cartItems={cartItems}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                setCartItems={setCartItems}
+              />
             }
           />
-          <Route
-            path="/search/:query"
-            element={<ProductResult onAdd={onAdd} />}
-          />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/*" element={<InvalidURL />} />
         </Routes>
       </Box>
     </>
