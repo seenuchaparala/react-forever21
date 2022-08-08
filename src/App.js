@@ -158,7 +158,7 @@ export default function App() {
             </Search>
             <IconButton
               aria-label="cart"
-              onClick={() => navigate(`/search/cart`)}
+              onClick={() => navigate(`/cart`)}
             >
               <Badge badgeContent={cartTotal} color="success">
                 <ShoppingCartIcon />
@@ -183,7 +183,7 @@ export default function App() {
             element={<ProductResult onAdd={onAdd} />}
           />
           <Route
-            path="/search/cart"
+            path="/cart"
             element={
               <Cart
                 cartItems={cartItems}

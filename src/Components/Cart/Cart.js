@@ -37,7 +37,7 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
       <Typography variant="h4" align="center">
         Your Cart
       </Typography>
-      {cartItems.qty === 0 ? <p>No items in cart.</p> : null}
+
       {cartItems.map((item) => (
         <CartItem
           key={item.pid}
