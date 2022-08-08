@@ -12,13 +12,14 @@ const Cart = ({ cartItems, onAdd, onRemove, setCartItems }) => {
   const [discount, setDiscount] = useState(0)
   const [labelError, setLabelError] = useState(false)
   const handleEnter = (e) => {
-    if (e.key === 'Enter') {
-      switch (coupon) {
-        case 'EXTRA30':
+    if (e.key === 'Enter' && coupon.substring(0, 5) === 'EXTRA') {
+      const num = coupon.substring(5)
+      switch (num) {
+        case '30':
           setDiscount((0.3 * itemsPrice).toFixed(2))
           setLabelError(false)
           break
-        case 'EXTRA50':
+        case '50':
           setDiscount((0.5 * itemsPrice).toFixed(2))
           setLabelError(false)
           break
