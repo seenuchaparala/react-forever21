@@ -6,6 +6,7 @@ Tech Stack
 - React 
 - Material UI
 - AWS
+- Jest
 
 Future Enhancements
 - Add backend functionanlity using Node.js
