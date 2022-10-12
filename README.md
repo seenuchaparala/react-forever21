@@ -11,6 +11,8 @@ Tech Stack
 Future Enhancements
 - Add backend functionanlity using Node.js
 
+Description:
+
 ![image](https://user-images.githubusercontent.com/22206367/194721570-010c26c6-10ad-4d07-a25d-4d5014a0171c.png)
 
 This Navbar contains home, product categories and shopping cart buttons, along with a search box. Clicking or searching for products will navigate to relavent products page.
